@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
-import { BookOpen, ChevronRight, FileText, Landmark, LayoutGrid, Lightbulb, Menu, Moon, Scale, Sun, UserRound, X } from "lucide-react";
+import { Activity, BookOpen, ChevronRight, FileText, Landmark, LayoutGrid, Lightbulb, Menu, Moon, Scale, Sun, UserRound, X } from "lucide-react";
 import { SERVICES, SERVICE_ORDER } from "@/lib/services";
 import type { ServiceKey } from "@/lib/types";
 
@@ -46,7 +46,9 @@ export function Shell({ children }: { children: ReactNode }) {
 
   const crumb = def
     ? [def.navLabel, def.populates]
-    : path.startsWith("/report")
+    : path.startsWith("/monitor")
+      ? ["Monitor", "Pipeline health"]
+      : path.startsWith("/report")
       ? ["Property Report"]
       : path.startsWith("/docs")
         ? ["API Documentation"]
@@ -86,6 +88,9 @@ export function Shell({ children }: { children: ReactNode }) {
             );
           })}
           <div className="nav-sep" />
+          <Link href="/monitor" className="nav-link" aria-current={path.startsWith("/monitor") ? "page" : undefined}>
+            <Activity size={17} /> Monitor
+          </Link>
           <Link href="/report" className="nav-link" aria-current={path.startsWith("/report") ? "page" : undefined}>
             <FileText size={17} /> Property Report
           </Link>
